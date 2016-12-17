@@ -12,7 +12,7 @@ public class LargestAreaHistogram_84Test {
     @Test
     public void test() {
         int[] height = new int[]{3, 1, 3, 2, 2        };
-        Assert.assertEquals(obj.largestRectangleArea(height), 10);
+        Assert.assertEquals(obj.largestRectangleArea(height), 6);
      }
 
 }
