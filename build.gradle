@@ -13,15 +13,11 @@ repositories {
 }
 
 test {
-
     useTestNG()
-    jacocoTestReport
-
 }
 
 jacocoTestReport{
     reports {
-        xml.enabled true
         html.enabled true
     }
 }
