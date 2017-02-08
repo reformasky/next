@@ -6,7 +6,10 @@ import java.util.List;
  * Created by xzhou2 on 1/22/17.
  */
 public interface NestedInteger {
+
     boolean isInteger();
     Integer getInteger();
     List<NestedInteger> getList();
+    void setInteger(int i);
+    void add(NestedInteger n);
 }
