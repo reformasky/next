@@ -1,5 +1,6 @@
 package org.xuan.ints;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -7,6 +8,25 @@ import java.util.List;
  * Created by xzhou2 on 2/2/17.
  */
 public class LexicalOrder_386 {
+    public List<Integer> lexicalOrder_recursive(int n) {
+        int curr = 1;
+        List<Integer> result = new ArrayList<>();
+        helper(result, n, curr);
+        return result;
+    }
+
+    private void helper(List<Integer> result, int max, int curr) {
+        result.add(curr);
+        if (curr * 10l <= max) {
+            helper(result, max, curr * 10);
+        }
+        if (curr + 1l <= max && curr % 10 != 9) {
+            helper(result, max, curr + 1);
+        }
+    }
+
+
+
     public List<Integer> lexicalOrder(int n) {
         Integer[] res = new Integer[n];
         int curr = 1;

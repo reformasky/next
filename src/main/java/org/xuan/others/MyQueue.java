@@ -9,12 +9,12 @@ class MyQueue {
     private Stack<Integer> stack1 = new Stack<>(),
             stack2 = new Stack<>();
 
-    // Push element x to the back of queue.
+    // Push element x to the back of stack.
     public void push(int x) {
         stack1.push(x);
     }
 
-    // Removes the element from in front of queue.
+    // Removes the element from in front of stack.
     public void pop() {
         if (stack2.isEmpty()) {
             while(!stack1.isEmpty()) {
@@ -35,7 +35,7 @@ class MyQueue {
         return stack2.peek();
     }
 
-    // Return whether the queue is empty.
+    // Return whether the stack is empty.
     public boolean empty() {
         return stack1.isEmpty() && stack2.isEmpty();
     }

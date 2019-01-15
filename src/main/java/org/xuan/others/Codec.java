@@ -2,55 +2,63 @@ package org.xuan.others;
 
 import org.xuan.util.TreeNode;
 
-import java.util.ArrayDeque;
-import java.util.Arrays;
-import java.util.Queue;
-
 /**
- * Created by xzhou2 on 1/10/17.
+ * Created by xzhou2 on 2/27/17.
  */
-
 public class Codec {
 
     // Encodes a tree to a single string.
     public String serialize(TreeNode root) {
         StringBuilder sb = new StringBuilder();
-        serialize(root, sb);
-        sb.deleteCharAt(sb.length() - 1);
+        preOrder(root, sb);
         return sb.toString();
     }
 
-    private void serialize(TreeNode root, StringBuilder sb) {
-        if (root == null) {
-            sb.append("#,");
-            return;
+    private void preOrder(TreeNode node, StringBuilder sb) {
+        if (node != null) {
+            if (sb.length() != 0) {
+                sb.append(",");
+            }
+            sb.append(node.val);
+            preOrder(node.left, sb);
+            preOrder(node.right, sb);
         }
-        sb.append(root.val);
-        sb.append(",");
-        serialize(root.left, sb);
-        serialize(root.right, sb);
     }
 
 
     // Decodes your encoded data to tree.
     public TreeNode deserialize(String data) {
-        Queue<String> queue = new ArrayDeque<>(Arrays.asList(data.split(",")));
-        return deserialize(queue);
+        if (data.length() == 0) {
+            return null;
+        }
+        String[] tokens = data.split(",");
+        int[] preorder = new int[tokens.length];
+        for(int i = 0; i < preorder.length; i++) {
+            preorder[i] = Integer.parseInt(tokens[i]);
+        }
+        return helper(preorder, 0, preorder.length - 1);
     }
 
-    private TreeNode deserialize(Queue<String> queue) {
-        if (queue.isEmpty()) {
-            throw new RuntimeException();
+    private TreeNode helper(int[] arr, int low, int high) {
+        if (low == high) {
+            return new TreeNode(arr[low]);
         }
-        String str = queue.poll();
-        if ("#".equals(str)) {
+        if (low > high) {
             return null;
-        } else {
-            TreeNode root = new TreeNode(Integer.parseInt(str));
-            root.left = deserialize(queue);
-            root.right = deserialize(queue);
-            return root;
         }
+        TreeNode root = new TreeNode(arr[low]);
+        int index = getFirstLarger(arr, low + 1, high);
+        root.left = helper(arr, low + 1, index - 1);
+        root.right = helper(arr, index, high);
+        return root;
+    }
+
+    private int getFirstLarger(int[] arr, int low, int high) {
+        for(int i = low ; i <= high; i++) {
+            if (arr[i] > arr[low - 1]) {
+                return i;
+            }
+        }
+        return high + 1;
     }
 }
-

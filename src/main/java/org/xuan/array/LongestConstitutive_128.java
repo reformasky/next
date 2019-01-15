@@ -1,7 +1,9 @@
 package org.xuan.array;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -14,11 +16,9 @@ public class LongestConstitutive_128 {
         Map<Integer, Integer> map = new HashMap<>();
         for(int num : nums) {
             if (!map.containsKey(num)) {
-                Integer left = map.get(num - 1),
-                        right = map.get(num + 1);
+                Integer left = map.getOrDefault(num - 1, 0),
+                        right = map.getOrDefault(num + 1, 0);
                 int curr = 1;
-                left = left == null ? 0 : left;
-                right = right == null ? 0 : right;
                 curr += left + right;
                 result = Math.max(result, curr);
                 map.put(num, curr);
